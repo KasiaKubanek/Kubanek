@@ -1,0 +1,1 @@
+Nie dziala mi blur effect i nie wiem czemu, sprawdzalam kod kilka razy i nie moglam znalezc zadnego bledu.
