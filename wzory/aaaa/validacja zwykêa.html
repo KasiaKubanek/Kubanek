@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Validacja z poziomu JavaScript</title>
+</head>
+<body>
+    <form action="" method="post">
+        <label for="">
+            Podaj liczbę:<input type="text" name="liczba" value="" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')">
+        <!--
+        "this.value=this.value.replace(/[^0-9]/g,'')"
+        "odniesienie_do_tej_zmiennej.value=odniesienie_dotejzmiennej.value.zmianamiejsca([co_zmieniam],[naco_zmieniam])
+        w tym zapisie (/[^0-9]/g,'') znaki oznaczajakolejno:
+        // - ciąg znaków, który sprawdzasz;
+        ^ - wszystko inne niż (w przykładzie od 0-9);
+        g - oznacza ze sprawdzamy cały ciąg;
+        -->
+        </label>
+    </form>
+</body>
+</html>

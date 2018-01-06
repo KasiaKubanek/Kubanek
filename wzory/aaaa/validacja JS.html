@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Zdarzenia</title>
+</head>
+<body>
+    <button onclick="this.innerHTML = 'Kliknołeś mnie!!!'">Kliknij mnie</button>
+    <br>
+    <a href="usun.php?akcja=kasuj&id=$idrekordu" onclick="return confirm('Jesteś pewien?')">Usuń rekord</a>
+    <!--
+        ondbclick - podwujne klikniecie klawisza myszy
+        onmousedown - wciśnięcie klawisza myszy
+        onmouseup - zwolnienie klawisza myszy
+
+        onmouseover - kursor myszki znalazł się w obszarze obiektu
+        onmouseout - zjazd z obiektu
+        onmousemove - krsor myszki został przesunięty
+
+        Parametry zdarzeń dostępne poprzez obiekt event:
+        clentX, clientY - względne współrzędne kursora myszy
+        screenX screenY - bezwzględne współrzędne ekranowe
+        button - numer klawisza myszy który był użyty var numer=event.button;
+        altKey - czy klawisz Alt jest wciśnięty
+        ctrlKey - czy klawisz Ctrl jest wciśnięty
+        shiftKey - czy klawisz Shift jest wciśnięty
+
+        Zdarzenia klawiatury:
+        onkeypress - klawisz alfanumeryczny został przytrzymany
+        onkeydown - klawisz alfanumeryczny został naciśnięty
+        onkeyup - klawisz alfanumeryczny został zwolniony
+        altKey - czy klawisz Alt jest wciśnięty
+        ctrlKey - czy klawisz Ctrl jest wciśnięty
+        shiftKey - czy klawisz Shift jest wciśnięy
+
+        <body onload = "">
+        <body onunload = "">
+
+        keycode
+            <script>
+                var klawisz = event.keyCode ? event.keyCode : event.which ? event.which : event.charCode;
+            </script>
+
+    <form action="index.php" method="post" onsubmit="return sprawdzFormularz(this)" onreset="">
+        onfocus - kontrolka otrzymała fokus
+        onblur - kontrolka straciła fokus
+        onselect - kontrolka została wybrana
+        onchange - zawartosc kontrolki zmieniła się
+    </form>
+    -->
+var wzorzec = "arfjASDG9ax"
+</body>
+</html>

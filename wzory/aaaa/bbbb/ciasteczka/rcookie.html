@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+	<meta charset="utf-8" />
+</head>
+<body>
+<script>
+function showCookie(name){
+	if(document.cookie !=""){
+		var cookies = document.cookie.split(";");
+		for (var i=0; i<cookies.length; i++){
+			var cookieName=cookies[i].split("=")[0];
+			var cookieValue=cookies[i].split("=")[1];
+			if(cookieName===name){
+				return decodeURI(cookieValue);
+			}
+		}
+	}
+}
+
+console.log(showCookie("login"));
+
+</script>
+<p>Czytanie ciasteczka</p>
+</body>
+</html>

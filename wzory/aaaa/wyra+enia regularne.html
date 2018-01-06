@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Regularne</title>
+</head>
+<body>
+<!-- Jak opisać łańcuch?
+Najprostszą metodą jest wypisanie jego wszystkich znaków po kolei. Do takiego opisu pasuje dokładnie jeden łańcuch :-) Czasami jednak zachodzi potrzeba opisu bardziej ogólnego do którego pasowało by ich więcej.
+Dlatego właśnie wymyślono wyrażenia regularne, które w PHP stosować można w funkcjach:
+ereg(), eregi(), ereg_replace(), eregi_replace(), split(), spliti(). (patrz: Manual :-))
+
+Zacznijmy od podstaw.
+W wyrażeniach regularnych stosujemy dwa rodzaje znaków:
+
+'zwyczajne' czyli takie jak np.: 'a', 'd', '4', 's'
+i znaki
+'specjalne' - '^', '$', '*', '+', '?', '.', '(', ')', '[', ']', '{', '}', '\',
+które wprowadzają do sformułowania regularność :-) Jeżeli chcemy by któryś ze 'specjalnych' znaków stał się 'zwyczajnym' to poprzedzamy go ukośnikiem, np.: '\*', '\.', '\\' (a to ostatnie to zwyczajny ukośnik :-)).
+
+Jako że wyjaśniliśmy sobie wszystko o znakach, a znaki 'zwyczajne' nie są zbyt interesujące, przejdźmy do tych drugich.
+Do najważniejszych jak na początek można zaliczyć '.', '*', '+', '?'.
+
+Kropka czyli '.' oznacza w zapisie regularnym jeden dowolny 'zwyczajny' znak. np.:
+"r.k" - pasuje do słów rak, rok, ryk itd...
+".a." - mak, rak, lat itd...
+".o.a" - lola, wola, Cola, rola, kolanooooo !!! Zonk ...?.!!?.!???? :-) hehe
+
+Z tym kolanem to nie błąd. Należy zwrócić uwagę, że sformułowanie ".o.a" opisuje cztery znaki jednak nie mówi nic o tym co może znaleźć się przed lub po nich. Jeżeli chcemy sobie ustalić w naszym opisie, że jakieś wyrażenie ma się znajdować na początku łańcucha, musimy poprzedzić je daszkiem '^', natomiast to co stoi przed dolarem '$' jest traktowane jako koniec ciągu znaków.
+
+Powróćmy do przykładu. Jeżeli chcemy by nasze wyrażenie regularne opisywało dokładnie cztery znaki, powinniśmy zapisać je tak:
+"^.o.a$" - mola, pola itd... (ale nie pagoda czy kolaboracja !!!)
+
+Gwiazdka '*' opisuje dowolną ilość tego co przed nią stoi. np.:
+"mu*" - mu , muu, muuuu, muuuuuuuu (czyli tak jak robi krowa :-))
+"c.*l" - caat, cut, ct, cool, coooool, coooooooooooooooool itd..
+
+
+A teraz drobne wyjaśnienie. Pisząc 'to co przed nią stoi' mam na myśli:
+pojedynczy 'zwyczajny' znak czy jak w ostatnim przykładzie kropkę '.'
+kawałek wyrażenia w nawiasach okrągłych czyli tzw. atom (ale o tym później)
+zakres znaków znajdujących się w nawiasach kwadratowych (także później :-))
+
+Plus '+' ma znaczenie takie jak gwiazdka ale z zastrzeżeniem - przynajmniej raz, natomiast znak zapytania '?' oznacza, że to co przed nim występuje może pojawić się tylko raz lub w ogóle.
+
+Myślę że teraz można by przejść do nawiasów klamrowych. Ich działanie można by porównać do bardziej zaawansowanego działania gwiazdki, plusa i pytajnika. W nawiasie klamrowym podajemy dokładną liczbę powtórzeń tego co stoi przed nim. Możemy także podać dwie liczby oddzielone przecinkiem, co oznacza powtórzenie wyrażenia minimalnie tyle razy ile pierwsza liczba, a maksymalnie tyle ile druga.
+{3} - dokładnie trzy razy
+{2,4} - minimalnie dwa, a maksymalnie cztery razy
+{5,} - przynajmniej pięć razy
+
+
+Nieszczęsne nawiasy :-)
+
+W wyrażeniu regularnym możemy pewne jego części umieszczać w nawiasach okrągłych. (tzw. Atom) Ma to taki sam cel jak w zapisie matematycznym. Chodzi o to by działanie jakiegoś 'niezwyczajnego' znaku wpływało na większą część wyrażenia, np.:
+
+"^.8.{2}(4.{2}){2}$"
+
+Taki zapis oznacza że na początku ma wystąpić jeden dowolny znak '^.', potem ósemka i dokładnie dwa dowolne znaki '8.{2}', no i oczekiwane wyrażenie w nawiasie (czyli czwórka i dwa dowolne znaki '4.{2}') które ma wystąpić dwa razy '(4.{2}){2}' w ten sposób kończąc cały przykład '$'. Tak się składa że pasuje on dokładnie do łódzkiego telefonu radia taxi 0800400400, ale ciąg t8pq4794j0 także spełni warunek.
+
+Drugim typem nawiasów są nawiasy kwadratowe czyli zakresy. Podaje się w nich zestaw znaków mogących wystąpić w danym miejscu, np.:
+
+"[akj]{5}"
+
+Wyrażenie opisuje pięcioliterowy wyraz złożony tylko i wyłącznie z liter 'a', 'k' i 'j', czyli może to być kakak, jjjjj, jakaj, kajka lub po prostu kajak :-) W nawiasach kwadratowych można także podać przedział znaków. Robi się to poprzez wpisanie dwóch znaków oddzielonych myślnikiem. Ważne jest by znakowi przed myślnikiem odpowiadał mniejszy kod Asci od znaku po nim, np:
+[A-Z] - duże litery,
+[a-z] - małe litery,
+[0-9] - cyfry
+
+Tak zdefiniowane przedziały literowe nie zawierają polskich znaków. Jeśli chcemy takowe uzyskać najlepiej jest je wszystkie wypisać.
+
+[0-9a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ] - taki zestaw znaków obejmuje wszystkich cyfry, małe i duże litery oraz małe i duże polskie znaki
+
+Jeśli w przedziale potrzebny jest znak myślnika, który normalnie używany jest do określania przedziałów znaków, to trzeba umieścić go na pierwszej lub ostatniej pozycji w nawiasach kwadratowych. W PHP stosować można także 'character classes' czyli już zdefiniowane zbiory znaków:
+
+[[:alpha:]] - wszystkie litery
+[[:alnum:]] - wszystkie litery oraz cyfry
+[[:digit:]] - cyfry
+[[:xdigit:]] - liczby w systemie szesnastkowym
+[[:lower:]] - małe litery
+[[:upper:]] - duże litery
+[[:punct:]] - znaki interpunkcji
+Znak '^' wpisany na pierwszym miejscu wewnątrz nawiasów kwadratowych oznacza negację całego zakresu, np.:
+"^k.*[^w]a$" - reguły tego wyrażenia mogą spełniać słowa kora, koala, kura ale pewne niecenzuralne słowo ich nie spełnia :-))))
+"[^0-9]*" - tutaj regułą jest by nie pojawiła się żadna cyfra
+
+W wyrażeniach regularnych pomiędzy atomami, znakami lub zakresami można postawić znak '|', który oznacza logiczną operację 'OR', czyli po prostu oznacza że może wystąpić to co znajduje się przed nim lub po nim.
+
+Jakiś przykład zastosowania, żeby nie było że nie ma :-)
+
+Przypuśćmy że na naszej stronie odwiedzający podają w polu input o nazwie 'url' adres jakiegoś pliku w sieci. Chcemy by jego nazwa zaczynała się od http lub ftp, była w domenie pl lub com i żeby plik był w formacie htm, html lub txt. Oprócz tego nie życzymy sobie w adresie żadnych znaków oprócz cyfr oraz liter małych i dużych bez polskich znaków. Posłużymy się funkcją eregi() która nie zwracając uwagi na wielkość liter porównuje dwa łańcuchy i sprawdza czy pierwszy znajduje się w drugim. Jeżeli 'tak' - zwraca 'true'.
+
+$url = trim($url);
+if(eregi("^(ft|htt)p://([a-z0-9]+\.)+(pl|com)/([a-z0-9]+/)*[a-z0-9]+\.(html?|txt)$", $url))
+jakaś_funkcja_co_zapisuje_url($url);
+else
+echo "Podana nazwa pliku nie spełnia żądanych warunków !";
+
+Dostępne są także specjalne sekwencje backslash-litera, zastępujące predefiniowane zestawy znaków:
+
+d - dowolna cyfra: [0-9];
+D - dowolny znak nie będący cyfrą: [^0-9];
+w - dowolna cyfra, litera (mała lub duża) lub znak podkreślenia: [0-9a-zA-Z_];
+W - dowolna znak nie będący cyfrą, literą (małą lub dużą) lub znakiem podkreślenia: [^0-9a-zA-Z_];
+s - dowolny biały znak: [ trnvf];
+S - dowolny nie-biały znak: [^ trnvf].
+Powyżej użyłem kilku innych znaków specjalnych - oto ich znaczenie:
+
+t - znak tabulacji poziomej (kod 0x09);
+r - znak powrotu karetki (kod 0x0D);
+n - znak nowej linii (kod 0x0A);
+v - znak tabulacji pionowej (kod 0x0B);
+f - znak wysunięcia strony (kod 0x0C).
+
+Wreszcie koniec :-)
+
+
+
+Zastąpienie w łańcuchu wszystkich wystąpień ciągu znaków za pomocą metody replace(). 
+
+
+
+Gdy przy wywołaniu metody replace dodamy przy pierwszym argumencie literę g (ang. global) wówczas zamiana zostanie przeprowadzona globalnie czyli w całym ciągu znaków. 
+
+
+<script language="JavaScript">
+
+var s = new String();
+
+
+s="ABC 123 456 ABC 789 abc";
+s = s.replace(/ABC/g,"X");
+document.write(s);
+
+</script>
+
+Zastąpienie w łańcuchu wszystkich wystąpień ciągu znaków (bez rozróżniania wielkości liter) za pomocą metody replace(). 
+
+Gdy przy wywołaniu metody replace dodamy przy pierwszym argumencie literę i (ang. insensitive) wówczas zamiana zostanie przeprowadzona bez zwracania uwagi na wielkość znaków. 
+
+
+<script language="JavaScript">
+
+var s = new String();
+
+s="ABC 123 456 ABC 789 abc";
+s = s.replace(/ABC/gi,"X");
+document.write(s);
+
+</script>
+
+
+echo "<form action="strona2.php" method="get">";
+echo "Podaj podstawę potęgi:&nbsp;<input type="text" name="podstawa" value="" onkeyup="this.value = this.value.replace(/[^0-9]/g,'')" /><br />";
+echo "Podaj dodatni, całkowity wykładnik potęgi:&nbsp;<input type="text" name="wykladnik" value="" onkeyup="this.value = this.value.replace(/[^0-9]/g,'')" /><br />";
+echo "<input type="hidden" name="potegowanie" value="tak" /><br />";
+echo "<input type="submit" value="POTĘGOWANIE" />";
+echo "</form><br />";
+
+$wartosc = str_replace('.', ",", $wartosc); 
+
+<script language="javascript" type="text/javascript">
+tekst = " przykładowy tekst ze spacjami ";
+tekst = tekst.replace(/^[ ]*/,"").replace(/[ ]*$/,"");
+document.write("-"+tekst+"-");
+</script>
+// -->
+</body>
+</html>

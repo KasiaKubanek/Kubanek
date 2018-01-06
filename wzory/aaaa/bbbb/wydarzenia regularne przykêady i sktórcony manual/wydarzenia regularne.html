@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+	<meta charset="utf-8" />
+</head>
+<body>
+<script>
+function sprawdz(){
+	alert(new RegExp(document.getElementById('rx').value).exec(document.getElementById('str').value))
+}
+</script>
+Wyrarzenie regularne:<br />
+<input type="text" id="rx" size="80" value="" /><br />
+Sprawdzany ciąg znakóbr<br />
+<input type="text" id="str" size="80" value="" /><br />
+<button onclick="sprawdz();">Sekczu</button>
+</body>
+</html>
