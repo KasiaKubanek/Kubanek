@@ -563,6 +563,37 @@ $		-koniec ciągu znaków(lewostronny)
 \s [ \t\r\n\v\f]
 \S [^ \t\r\n\v\f]
 
+<!--Most important CSS-->
+1. width - szerokość
+2. height - wysokość
+3. max-width -	maksymalna szerokość
+4. max-height -	maksymalna wysokość
+5. min-width -	minimalna szerokość
+6. min-height -	minimalna wysokość
+7. margin - marginesy (wszystkie cztery)
+8. margin-left, margin-right, margin-top, margin-bottom	- marginesy lewy, prawy, górny i dolny
+9. padding - marginesy wewnętrzne (z czterech stron)
+10. padding-left, padding-right, padding-top, padding-bottom - marginesy wewnetrzne z lewej, prawej, górne i dolne
+11. text-align - justify, left, right, center - wyrównanie tekstu
+12. font-family - nazwa czcionki
+13. font-size - rozmiar czcionki
+14. font-style - normal, italic, oblique - kursywa
+15. font-variant - normal, small-caps - small caps robi małego capslocka
+16. text-decoration - none, underline, overline, line-through, blink - dekoracja tekstu
+17. text-transform - capitalize, uppercase, lowercase, none - przekształcanie tekstu
+18. border-collapse - collapse, separate - złączanie krawędzi sąsiadujących komórek tabeli
+19. border - rozmiar/kolor/styl(dashed, dotted, solid) - okreslenie obramowania z czterech stron
+20. border-left, border-right, border-top, border-bottom - obramowanie z lewej, prawej, na górze i na dole
+21. list-style-position - inside, outside - położenie numeracji względem tekstu
+22. list-style-image - adres uri obrazu - ikona wypunktowania
+23. background - mieszane atrybuty tła
+24. background-color - kolor tła, duh
+25. background-attachment - zaczepienie tła
+26. background-image - obraz jako tło
+27. display - block, inline, inline-block, inline-table, table (wincyj nam chyba nie potrzeba) - sposob wyświetlania elementu
+28. float - left, right, none, inherit - pozycjonowanie elementu
+29. overflow - określa co zrobić, gdy zawartość elementu nie mieści się w rozmiarach podanych przez width oraz height
+30. position - relative, static, fixed, absolute, sticky - określa pozycję elementu
 
 <!--ZAPYTANIA SQL--> 
 Wyświetl wszystkich pracowników, którzy zarabiająkwote równą największej pensji spośród wszystkich pracowników.
